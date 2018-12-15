@@ -23,11 +23,12 @@ import ProjectExample from './ProjectExample.js';
 
 
 export default class App {
-    constructor( appRoot, projectRoot, packJSON ) {
+    constructor( appRoot, projectRoot, packJSON, osName ) {
 
         this.appRoot = appRoot;
         this.projectRoot = projectRoot;
-        this.packJSON = packJSON;
+        this.packJSON = packJSON;   
+        this.osName = osName;
 
         console.log( [ 
             'appRoot: ' + this.appRoot
@@ -57,7 +58,13 @@ export default class App {
 
         console.log();
 
-        this.getExample().then( ()=> {
+        new Promise( function( resolve ){
+            setTimeout( resolve, 1);
+        }).then( () => {
+            return this.getSourceDir();
+        }).then( () => {
+            return this.getOutputDir();
+        }).then( () => {
             if( this.ip ){
                 console.log();
                 return this.getPort();
@@ -73,6 +80,16 @@ export default class App {
         }).then( ()=>{
             this.project = new ProjectExample( this );
         });
+    }
+
+    async getSourceDir(){
+        let data = await this.prompt( DATA.Q_SOURCE_DIR);
+        this.source_dir = data.source_dir;
+    }
+
+    async getOutputDir(){
+        let data = await this.prompt( DATA.Q_OUTPUT_DIR);
+        this.output_dir = data.output_dir;
     }
 
     async getExample(){

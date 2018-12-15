@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.Q_EXAMPLE = undefined;
+exports.Q_OUTPUT_DIR = exports.Q_SOURCE_DIR = exports.Q_EXAMPLE = undefined;
 
 var _constant = require("./constant.js");
 
@@ -11,6 +11,20 @@ var Q_EXAMPLE = exports.Q_EXAMPLE = [{
     "name": "example",
     "type": "input",
     "message": "示例输入"
+}];
+
+var Q_SOURCE_DIR = exports.Q_SOURCE_DIR = [{
+    "name": "soruce_dir",
+    "type": "input",
+    "message": "请输入源数据根目录",
+    "default": "./city"
+}];
+
+var Q_OUTPUT_DIR = exports.Q_OUTPUT_DIR = [{
+    "name": "output_dir",
+    "type": "input",
+    "message": "请输入生成数据根目录",
+    "default": "./output"
 }];
 
 /*

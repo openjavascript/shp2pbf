@@ -38,6 +38,7 @@
     "figlet": "^1.2.0",
     "fs": "^0.0.1-security",
     "inquirer": "^5.2.0",
+    "node-getopt": "^0.3.2",
     "path": "^0.12.7",
     "shelljs": "^0.8.2"
   }

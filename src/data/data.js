@@ -11,6 +11,27 @@ export const Q_EXAMPLE = [
     }
 ];
 
+export const Q_SOURCE_DIR = [
+    { 
+        "name": "soruce_dir"
+        , "type": "input"
+        , "message": "请输入源数据根目录"
+        , "default": "./city"
+    }
+];
+
+export const Q_OUTPUT_DIR = [
+    { 
+        "name": "output_dir"
+        , "type": "input"
+        , "message": "请输入生成数据根目录"
+        , "default": "./output"
+    }
+];
+
+
+
+
 
 /*
 export const Q_INIT_PUBLIC = [

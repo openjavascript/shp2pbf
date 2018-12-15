@@ -60,12 +60,13 @@ var success = _chalk2.default.greenBright;
 var info = _chalk2.default.bold.blue;
 
 var App = function () {
-    function App(appRoot, projectRoot, packJSON) {
+    function App(appRoot, projectRoot, packJSON, osName) {
         _classCallCheck(this, App);
 
         this.appRoot = appRoot;
         this.projectRoot = projectRoot;
         this.packJSON = packJSON;
+        this.osName = osName;
 
         console.log(['appRoot: ' + this.appRoot, 'projectRoot: ' + this.projectRoot].join("\n"));
 
@@ -96,7 +97,13 @@ var App = function () {
 
             console.log();
 
-            this.getExample().then(function () {
+            new Promise(function (resolve) {
+                setTimeout(resolve, 1);
+            }).then(function () {
+                return _this.getSourceDir();
+            }).then(function () {
+                return _this.getOutputDir();
+            }).then(function () {
                 if (_this.ip) {
                     console.log();
                     return _this.getPort();
@@ -112,6 +119,18 @@ var App = function () {
             }).then(function () {
                 _this.project = new _ProjectExample2.default(_this);
             });
+        }
+    }, {
+        key: "getSourceDir",
+        value: async function getSourceDir() {
+            var data = await this.prompt(DATA.Q_SOURCE_DIR);
+            this.source_dir = data.source_dir;
+        }
+    }, {
+        key: "getOutputDir",
+        value: async function getOutputDir() {
+            var data = await this.prompt(DATA.Q_OUTPUT_DIR);
+            this.output_dir = data.output_dir;
         }
     }, {
         key: "getExample",
