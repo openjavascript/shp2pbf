@@ -1,0 +1,44 @@
+{
+  "name": "shp2pbf",
+  "version": "1.0.0",
+  "description": ".shp and .kml to .pbf",
+  "main": "src/main.js",
+  "bin": {
+    "shp2pbf": "bin/main.js"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "babel -w src/ -d bin/",
+    "public": "babel src/ -d bin/"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/openjavascript/shp2pbf.git"
+  },
+  "keywords": [
+    "shp2pbf",
+    "env",
+    "init",
+    "node",
+    "javascript",
+    "suches"
+  ],
+  "author": "suches <908202921@qq.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/openjavascript/shp2pbf/issues"
+  },
+  "homepage": "https://github.com/openjavascript/shp2pbf#readme",
+  "dependencies": {
+    "babel-cli": "^6.26.0",
+    "babel-core": "^6.26.3",
+    "babel-preset-es2015": "^6.24.1",
+    "chalk": "^2.4.1",
+    "clear": "^0.1.0",
+    "figlet": "^1.2.0",
+    "fs": "^0.0.1-security",
+    "inquirer": "^5.2.0",
+    "path": "^0.12.7",
+    "shelljs": "^0.8.2"
+  }
+}
