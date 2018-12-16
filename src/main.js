@@ -27,5 +27,6 @@ const pack = fs.readFileSync( `${APP_ROOT}/package.json`, 'utf8' );
 const packJSON = JSON.parse( pack );
 
 require('babel-core/register');
+require("babel-polyfill");
 const init = require( './app' ).init;
 init( APP_ROOT, PROJECT_ROOT, packJSON, osName );
