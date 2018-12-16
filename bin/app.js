@@ -154,11 +154,24 @@ var App = function () {
             var r = [];
 
             var obj = {};
-            var tmp = _path2.default.resolve(this.projectRoot, output, cityName);
+            var tmp = _path2.default.resolve(this.projectRoot, src, cityName);
+            var postfix = this.getPostfixName(src);
 
-            obj.src = tmp;
+            if (_fsExtra2.default.pathExistsSync(tmp)) {
+                obj.src = tmp;
+            }
 
-            //console.log( this.getPostfixName( output ) );
+            if (!obj.src) {
+                tmp = _path2.default.resolve(this.projectRoot, src, cityName + ['_', postfix].join(''));
+                if (_fsExtra2.default.pathExistsSync(tmp)) {
+                    obj.src = tmp;
+                }
+            }
+            if (!obj.src) return r;
+
+            tmp = _path2.default.resolve(this.projectRoot, output, cityName.replace(/shi$/i, '') + 'shi');
+
+            obj.out = tmp;
 
             r.push(obj);
 
@@ -170,7 +183,6 @@ var App = function () {
             var r = '';
             r = dir.replace(/\/$/, '').split('/');
             r = r[r.length - 1] || '';
-            r = ['_', r].join('');
 
             return r;
         }

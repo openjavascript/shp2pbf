@@ -36,7 +36,8 @@ export const Q_CITY_NAME = [
         "name": "city_name"
         , "type": "input"
         , "message": "请输入城市名称(留空表示处理所有城市)"
-        , "default": "macao"
+        //, "default": "macao"
+        , "default": ""
     }
 ];
 

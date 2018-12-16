@@ -111,13 +111,24 @@ export default class App {
 		let r = [];
 
 		let obj = {};
-		let tmp = path.resolve( this.projectRoot, output, cityName );
+		let tmp = path.resolve( this.projectRoot, src, cityName );
+		let postfix = this.getPostfixName( src )
 
+		if( fs.pathExistsSync( tmp ) ){
+			obj.src = tmp;
+		}
 
+		if( !obj.src ){
+			tmp = path.resolve( this.projectRoot, src, cityName +  [ '_', postfix ].join('')  );
+			if( fs.pathExistsSync( tmp ) ){
+				obj.src = tmp;
+			}
+		}
+		if( !obj.src ) return r;
 
-		obj.src = tmp;
+		tmp = path.resolve( this.projectRoot, output,  cityName.replace( /shi$/i, '' ) + 'shi'  );
 
-		//console.log( this.getPostfixName( output ) );
+		obj.out = tmp;
 
 		r.push( obj );
 
@@ -128,7 +139,6 @@ export default class App {
 		let r = '';
 		r = dir.replace( /\/$/, '').split( '/' )
 		r = r[ r.length - 1] || '';
-		r = [ '_', r ].join('');
 
 		return r;
 	}
