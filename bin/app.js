@@ -8,9 +8,9 @@ var _createClass = function () { function defineProperties(target, props) { for 
 
 exports.init = init;
 
-var _fs = require("fs");
+var _fsExtra = require("fs-extra");
 
-var _fs2 = _interopRequireDefault(_fs);
+var _fsExtra2 = _interopRequireDefault(_fsExtra);
 
 var _path = require("path");
 
@@ -116,6 +116,10 @@ var App = function () {
             }).then(function () {
                 _this.isGood = 1;
 
+                var tmp = _this.resolveDir(_this.building_dir, _this.output_building_dir);
+
+                console.log(tmp);
+
                 //this.isGood = 0;
                 return new Promise(function (resolve) {
                     setTimeout(resolve, 1);
@@ -130,6 +134,52 @@ var App = function () {
                 if (_this.confirm == 'no') return;
                 _this.project = new _ProjectExample2.default(_this);
             });
+        }
+    }, {
+        key: "resolveDir",
+        value: function resolveDir(src, output) {
+            var r = [];
+
+            if (this.city_name) {
+                r = this.resolveDirCityName(src, output, this.city_name);
+            } else {
+                r = this.resolveDirBatch(src, output);
+            }
+
+            return r;
+        }
+    }, {
+        key: "resolveDirCityName",
+        value: function resolveDirCityName(src, output, cityName) {
+            var r = [];
+
+            var obj = {};
+            var tmp = _path2.default.resolve(this.projectRoot, output, cityName);
+
+            obj.src = tmp;
+
+            //console.log( this.getPostfixName( output ) );
+
+            r.push(obj);
+
+            return r;
+        }
+    }, {
+        key: "getPostfixName",
+        value: function getPostfixName(dir) {
+            var r = '';
+            r = dir.replace(/\/$/, '').split('/');
+            r = r[r.length - 1] || '';
+            r = ['_', r].join('');
+
+            return r;
+        }
+    }, {
+        key: "resolveDirBatch",
+        value: function resolveDirBatch(src, output) {
+            var r = [];
+
+            return r;
         }
     }, {
         key: "getOutputBuildingDir",
@@ -382,7 +432,7 @@ var App = function () {
     }, {
         key: "fileExists",
         value: function fileExists(file) {
-            return _fs2.default.existsSync(file);
+            return _fsExtra2.default.existsSync(file);
         }
     }, {
         key: "welcome",

@@ -1,5 +1,5 @@
 
-import fs from "fs";
+import fs from "fs-extra";
 import path from "path";
 
 import chalk from 'chalk';
@@ -75,6 +75,10 @@ export default class App {
         }).then( () => {
             this.isGood = 1;
 
+			let tmp = this.resolveDir( this.building_dir, this.output_building_dir );
+
+			console.log( tmp );
+
             //this.isGood = 0;
             return new Promise( function( resolve ){
                 setTimeout( resolve, 1);
@@ -90,6 +94,50 @@ export default class App {
             this.project = new ProjectExample( this );
         });
     }
+
+	resolveDir( src, output ){
+		let r = [];
+		
+		if( this.city_name ){
+			r = this.resolveDirCityName( src, output, this.city_name );
+		}else{
+			r = this.resolveDirBatch( src, output );
+		}
+
+		return r;
+	}
+
+	resolveDirCityName( src, output, cityName ){
+		let r = [];
+
+		let obj = {};
+		let tmp = path.resolve( this.projectRoot, output, cityName );
+
+
+
+		obj.src = tmp;
+
+		//console.log( this.getPostfixName( output ) );
+
+		r.push( obj );
+
+		return r;
+	}
+
+	getPostfixName( dir ){	
+		let r = '';
+		r = dir.replace( /\/$/, '').split( '/' )
+		r = r[ r.length - 1] || '';
+		r = [ '_', r ].join('');
+
+		return r;
+	}
+
+	resolveDirBatch( src, output ){
+		let r = [];
+
+		return r;
+	}
 
     async getOutputBuildingDir(){
         let data = await this.prompt( DATA.Q_OUTPUT_BUILDING_DIR );

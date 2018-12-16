@@ -39,6 +39,7 @@
     "clear": "^0.1.0",
     "figlet": "^1.2.0",
     "fs": "^0.0.1-security",
+    "fs-extra": "^7.0.1",
     "inquirer": "^5.2.0",
     "node-getopt": "^0.3.2",
     "path": "^0.12.7",
