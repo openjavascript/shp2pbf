@@ -4,10 +4,10 @@
 var fs = require('fs');
 var os = require('os');
 var path = require('path');
-var shelljs = require('shelljs');
+var shell = require('shelljs');
 var get_args = require('./utils/get_args.js');
 
-var osInfo = shelljs.exec('cat /etc/os-release', { silent: true });
+var osInfo = shell.exec('cat /etc/os-release', { silent: true });
 var osName = '';
 /ubuntu/i.test(osInfo) && (osName = 'Ubuntu');
 /centos/i.test(osInfo) && (osName = 'Centos');

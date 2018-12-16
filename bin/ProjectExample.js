@@ -6,9 +6,9 @@ Object.defineProperty(exports, "__esModule", {
 
 var _createClass = function () { function defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } } return function (Constructor, protoProps, staticProps) { if (protoProps) defineProperties(Constructor.prototype, protoProps); if (staticProps) defineProperties(Constructor, staticProps); return Constructor; }; }();
 
-var _fs = require("fs");
+var _fsExtra = require("fs-extra");
 
-var _fs2 = _interopRequireDefault(_fs);
+var _fsExtra2 = _interopRequireDefault(_fsExtra);
 
 var _path = require("path");
 
@@ -34,6 +34,9 @@ function _possibleConstructorReturn(self, call) { if (!self) { throw new Referen
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function, not " + typeof superClass); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, enumerable: false, writable: true, configurable: true } }); if (superClass) Object.setPrototypeOf ? Object.setPrototypeOf(subClass, superClass) : subClass.__proto__ = superClass; }
 
+var shell = require('shelljs');
+var glob = require("glob");
+
 var error = _chalk2.default.bold.red;
 var warning = _chalk2.default.keyword('orange');
 var success = _chalk2.default.greenBright;
@@ -51,8 +54,40 @@ var ProjectExample = function (_Project) {
     _createClass(ProjectExample, [{
         key: "init",
         value: function init() {
-            console.log('ProjectExample', Date.now());
-            this.initMethod();
+            //console.log( 'ProjectExample', Date.now() )
+            //this.initMethod();
+            this.cleanOutput();
+            this.initBuilding();
+        }
+    }, {
+        key: "cleanOutput",
+        value: function cleanOutput() {
+            var cmd = _path2.default.resolve(this.app.projectRoot, this.app.output_building_dir) + "/*";
+            shell.rm('-rf', cmd);
+        }
+    }, {
+        key: "initBuilding",
+        value: function initBuilding() {
+            var _this2 = this;
+
+            if (!(this.app.buildingList && this.app.buildingList.length)) return;
+
+            this.app.buildingList.map(function (item) {
+                var pattern = item.source + "/**/*.geojson";
+                var match = glob.sync(pattern);
+                if (!match.length) {
+                    console.log(warning("building path: " + item.source + " do not have .geojson "));
+                    return;
+                }
+                _fsExtra2.default.ensureDirSync(item.output);
+                var cmd = "tippecanoe --output-to-directory=" + item.output + " " + _this2.app.building_params + " " + match.join(' ');
+                /*
+                console.log( match );
+                console.log( item.output );
+                console.log( cmd );
+                */
+                //shell.exec( cmd );
+            });
         }
     }]);
 

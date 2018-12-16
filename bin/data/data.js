@@ -11,14 +11,14 @@ var Q_OUTPUT_BUILDING_DIR = exports.Q_OUTPUT_BUILDING_DIR = [{
     "name": "output_building_dir",
     "type": "input",
     "message": "请输入建筑输出目录",
-    "default": "./ouput/building"
+    "default": "./output/building"
 }];
 
 var Q_BUILDING_PARAMS = exports.Q_BUILDING_PARAMS = [{
     "name": "building_params",
     "type": "input",
     "message": "请输入建筑编译参数",
-    "default": "-z 15 -l building"
+    "default": "-z 15 -Z 10 --no-tile-size-limit --coalesce -n geodata -z 15 -l building"
 }];
 
 var Q_BUILDING_DIR = exports.Q_BUILDING_DIR = [{

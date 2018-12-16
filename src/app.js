@@ -75,15 +75,19 @@ export default class App {
         }).then( () => {
             this.isGood = 1;
 
-			let tmp = this.resolveDir( this.building_dir, this.output_building_dir );
-
-			console.log( tmp );
+			this.buildingList = this.resolveDir( this.building_dir, this.output_building_dir );
 
 			let space = '        ';
 
 			console.log( space + 'os-release:', this.osName );
+			console.log()
+			console.log( space + 'building list:' );
+			this.buildingList.map( ( item ) => {
+				console.log( space + '    source:', item.source );
+				console.log( space + '    output:', item.output );
+			});
 
-
+			console.log();
 
             //this.isGood = 0;
             return new Promise( ( resolve ) => {
@@ -143,21 +147,21 @@ export default class App {
 		let postfix = this.getPostfixName( src )
 
 		if( fs.pathExistsSync( tmp ) ){
-			obj.src = tmp;
+			obj.source = tmp;
 		}
 
-		if( !obj.src ){
+		if( !obj.source ){
 			tmp = path.resolve( this.projectRoot, src, cityName +  [ '_', postfix ].join('')  );
 			if( fs.pathExistsSync( tmp ) ){
-				obj.src = tmp;
+				obj.source = tmp;
 			}
 		}
-		if( !obj.src ) return r;
+		if( !obj.source ) return r;
 
 		obj.cityName = cityName;
 		tmp = path.resolve( this.projectRoot, output,  obj.cityName.replace( /shi$/i, '' ) + 'shi'  );
 
-		obj.out = tmp;
+		obj.output = tmp;
 
 		r.push( obj );
 
@@ -194,9 +198,9 @@ export default class App {
 		dirList.map( (item)=> {
 			let obj = {};
 
-			obj.src = path.resolve( dir, item );
+			obj.source = path.resolve( dir, item );
 			obj.cityName = p.getDirCityName( item );
-			obj.out = path.resolve( this.projectRoot, output,  obj.cityName.replace( /shi$/i, '' ) + 'shi'  );
+			obj.output = path.resolve( this.projectRoot, output,  obj.cityName.replace( /shi$/i, '' ) + 'shi'  );
 
 			r.push( obj );
 		});

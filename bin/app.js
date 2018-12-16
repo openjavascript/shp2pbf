@@ -116,13 +116,19 @@ var App = function () {
             }).then(function () {
                 _this.isGood = 1;
 
-                var tmp = _this.resolveDir(_this.building_dir, _this.output_building_dir);
-
-                console.log(tmp);
+                _this.buildingList = _this.resolveDir(_this.building_dir, _this.output_building_dir);
 
                 var space = '        ';
 
                 console.log(space + 'os-release:', _this.osName);
+                console.log();
+                console.log(space + 'building list:');
+                _this.buildingList.map(function (item) {
+                    console.log(space + '    source:', item.source);
+                    console.log(space + '    output:', item.output);
+                });
+
+                console.log();
 
                 //this.isGood = 0;
                 return new Promise(function (resolve) {
@@ -181,21 +187,21 @@ var App = function () {
             var postfix = this.getPostfixName(src);
 
             if (_fsExtra2.default.pathExistsSync(tmp)) {
-                obj.src = tmp;
+                obj.source = tmp;
             }
 
-            if (!obj.src) {
+            if (!obj.source) {
                 tmp = _path2.default.resolve(this.projectRoot, src, cityName + ['_', postfix].join(''));
                 if (_fsExtra2.default.pathExistsSync(tmp)) {
-                    obj.src = tmp;
+                    obj.source = tmp;
                 }
             }
-            if (!obj.src) return r;
+            if (!obj.source) return r;
 
             obj.cityName = cityName;
             tmp = _path2.default.resolve(this.projectRoot, output, obj.cityName.replace(/shi$/i, '') + 'shi');
 
-            obj.out = tmp;
+            obj.output = tmp;
 
             r.push(obj);
 
@@ -237,9 +243,9 @@ var App = function () {
             dirList.map(function (item) {
                 var obj = {};
 
-                obj.src = _path2.default.resolve(dir, item);
+                obj.source = _path2.default.resolve(dir, item);
                 obj.cityName = p.getDirCityName(item);
-                obj.out = _path2.default.resolve(_this2.projectRoot, output, obj.cityName.replace(/shi$/i, '') + 'shi');
+                obj.output = _path2.default.resolve(_this2.projectRoot, output, obj.cityName.replace(/shi$/i, '') + 'shi');
 
                 r.push(obj);
             });
