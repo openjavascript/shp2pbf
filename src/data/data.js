@@ -3,20 +3,40 @@ import {
     APPNAME
 } from './constant.js';
 
-export const Q_EXAMPLE = [
+export const Q_OUTPUT_BUILDING_DIR = [
     { 
-        "name": "example"
+        "name": "output_building_dir"
         , "type": "input"
-        , "message": "示例输入"
+        , "message": "请输入建筑输出目录"
+        , "default": "./ouput/building"
     }
 ];
 
-export const Q_SOURCE_DIR = [
+export const Q_BUILDING_PARAMS = [
     { 
-        "name": "soruce_dir"
+        "name": "building_params"
         , "type": "input"
-        , "message": "请输入源数据根目录"
-        , "default": "./city"
+        , "message": "请输入建筑编译参数"
+        , "default": "-z 15 -l building"
+    }
+];
+
+
+export const Q_BUILDING_DIR = [
+    { 
+        "name": "building_dir"
+        , "type": "input"
+        , "message": "请输入建筑目录"
+        , "default": "./city/building"
+    }
+];
+
+export const Q_CITY_NAME = [
+    { 
+        "name": "city_name"
+        , "type": "input"
+        , "message": "请输入城市名称(留空表示处理所有城市)"
+        , "default": "macao"
     }
 ];
 
@@ -29,9 +49,32 @@ export const Q_OUTPUT_DIR = [
     }
 ];
 
+export const Q_SOURCE_DIR = [
+    { 
+        "name": "soruce_dir"
+        , "type": "input"
+        , "message": "请输入源数据根目录"
+        , "default": "./city"
+    }
+];
 
+export const Q_EXAMPLE = [
+    { 
+        "name": "example"
+        , "type": "input"
+        , "message": "示例输入"
+    }
+];
 
-
+export const Q_CONFIRM = [
+    { 
+        "name": "confirm"
+        , "type": "list"
+        , "message": "开始执行操作？"
+        , "choices": [ 'yes', 'no' ]
+        , "default": 'yes'
+    }
+];
 
 /*
 export const Q_INIT_PUBLIC = [

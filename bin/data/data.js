@@ -3,14 +3,43 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.Q_OUTPUT_DIR = exports.Q_SOURCE_DIR = exports.Q_EXAMPLE = undefined;
+exports.Q_CONFIRM = exports.Q_EXAMPLE = exports.Q_SOURCE_DIR = exports.Q_OUTPUT_DIR = exports.Q_CITY_NAME = exports.Q_BUILDING_DIR = exports.Q_BUILDING_PARAMS = exports.Q_OUTPUT_BUILDING_DIR = undefined;
 
 var _constant = require("./constant.js");
 
-var Q_EXAMPLE = exports.Q_EXAMPLE = [{
-    "name": "example",
+var Q_OUTPUT_BUILDING_DIR = exports.Q_OUTPUT_BUILDING_DIR = [{
+    "name": "output_building_dir",
     "type": "input",
-    "message": "示例输入"
+    "message": "请输入建筑输出目录",
+    "default": "./ouput/building"
+}];
+
+var Q_BUILDING_PARAMS = exports.Q_BUILDING_PARAMS = [{
+    "name": "building_params",
+    "type": "input",
+    "message": "请输入建筑编译参数",
+    "default": "-z 15 -l building"
+}];
+
+var Q_BUILDING_DIR = exports.Q_BUILDING_DIR = [{
+    "name": "building_dir",
+    "type": "input",
+    "message": "请输入建筑目录",
+    "default": "./city/building"
+}];
+
+var Q_CITY_NAME = exports.Q_CITY_NAME = [{
+    "name": "city_name",
+    "type": "input",
+    "message": "请输入城市名称(留空表示处理所有城市)",
+    "default": "macao"
+}];
+
+var Q_OUTPUT_DIR = exports.Q_OUTPUT_DIR = [{
+    "name": "output_dir",
+    "type": "input",
+    "message": "请输入生成数据根目录",
+    "default": "./output"
 }];
 
 var Q_SOURCE_DIR = exports.Q_SOURCE_DIR = [{
@@ -20,11 +49,18 @@ var Q_SOURCE_DIR = exports.Q_SOURCE_DIR = [{
     "default": "./city"
 }];
 
-var Q_OUTPUT_DIR = exports.Q_OUTPUT_DIR = [{
-    "name": "output_dir",
+var Q_EXAMPLE = exports.Q_EXAMPLE = [{
+    "name": "example",
     "type": "input",
-    "message": "请输入生成数据根目录",
-    "default": "./output"
+    "message": "示例输入"
+}];
+
+var Q_CONFIRM = exports.Q_CONFIRM = [{
+    "name": "confirm",
+    "type": "list",
+    "message": "开始执行操作？",
+    "choices": ['yes', 'no'],
+    "default": 'yes'
 }];
 
 /*

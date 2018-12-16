@@ -60,26 +60,55 @@ export default class App {
 
         new Promise( function( resolve ){
             setTimeout( resolve, 1);
+        //}).then( () => {
+/*            return this.getSourceDir();*/
+        //}).then( () => {
+            //return this.getOutputDir();
         }).then( () => {
-            return this.getSourceDir();
+            return this.getCityName();
         }).then( () => {
-            return this.getOutputDir();
+            return this.getBuildingDir();
         }).then( () => {
-            if( this.ip ){
-                console.log();
-                return this.getPort();
-            }else{
-                return new Promise( function( resolve ){
-                    setTimeout( resolve, 1);
-                });
-            }
+            return this.getBuildingParams();
         }).then( () => {
+            return this.getOutputBuildingDir();
+        }).then( () => {
+            this.isGood = 1;
+
+            //this.isGood = 0;
             return new Promise( function( resolve ){
                 setTimeout( resolve, 1);
             });
+        }).then( () => {
+			if( !this.isGood ){
+				this.confirm = 'no';
+				return;
+			}
+            return this.getConfirm();
         }).then( ()=>{
+			 if( this.confirm == 'no' ) return;
             this.project = new ProjectExample( this );
         });
+    }
+
+    async getOutputBuildingDir(){
+        let data = await this.prompt( DATA.Q_OUTPUT_BUILDING_DIR );
+        this.output_building_dir  = data.output_building_dir;
+    }
+
+    async getBuildingParams(){
+        let data = await this.prompt( DATA.Q_BUILDING_PARAMS );
+        this.building_params = data.building_params;
+    }
+
+    async getBuildingDir(){
+        let data = await this.prompt( DATA.Q_BUILDING_DIR );
+        this.building_dir  = data.building_dir;
+    }
+
+    async getCityName(){
+        let data = await this.prompt( DATA.Q_CITY_NAME );
+        this.city_name  = data.city_name;
     }
 
     async getSourceDir(){
@@ -90,6 +119,11 @@ export default class App {
     async getOutputDir(){
         let data = await this.prompt( DATA.Q_OUTPUT_DIR);
         this.output_dir = data.output_dir;
+    }
+
+    async getConfirm(){
+        let data = await this.prompt( DATA.Q_CONFIRM );
+        this.confirm = data.confirm;
     }
 
     async getExample(){

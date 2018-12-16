@@ -99,26 +99,59 @@ var App = function () {
 
             new Promise(function (resolve) {
                 setTimeout(resolve, 1);
+                //}).then( () => {
+                /*            return this.getSourceDir();*/
+                //}).then( () => {
+                //return this.getOutputDir();
             }).then(function () {
-                return _this.getSourceDir();
+                return _this.getCityName();
             }).then(function () {
-                return _this.getOutputDir();
+                return _this.getBuildingDir();
             }).then(function () {
-                if (_this.ip) {
-                    console.log();
-                    return _this.getPort();
-                } else {
-                    return new Promise(function (resolve) {
-                        setTimeout(resolve, 1);
-                    });
-                }
+                return _this.getBuildingParams();
             }).then(function () {
+                return _this.getOutputBuildingDir();
+            }).then(function () {
+                _this.isGood = 1;
+
+                //this.isGood = 0;
                 return new Promise(function (resolve) {
                     setTimeout(resolve, 1);
                 });
             }).then(function () {
+                if (!_this.isGood) {
+                    _this.confirm = 'no';
+                    return;
+                }
+                return _this.getConfirm();
+            }).then(function () {
+                if (_this.confirm == 'no') return;
                 _this.project = new _ProjectExample2.default(_this);
             });
+        }
+    }, {
+        key: "getOutputBuildingDir",
+        value: async function getOutputBuildingDir() {
+            var data = await this.prompt(DATA.Q_OUTPUT_BUILDING_DIR);
+            this.output_building_dir = data.output_building_dir;
+        }
+    }, {
+        key: "getBuildingParams",
+        value: async function getBuildingParams() {
+            var data = await this.prompt(DATA.Q_BUILDING_PARAMS);
+            this.building_params = data.building_params;
+        }
+    }, {
+        key: "getBuildingDir",
+        value: async function getBuildingDir() {
+            var data = await this.prompt(DATA.Q_BUILDING_DIR);
+            this.building_dir = data.building_dir;
+        }
+    }, {
+        key: "getCityName",
+        value: async function getCityName() {
+            var data = await this.prompt(DATA.Q_CITY_NAME);
+            this.city_name = data.city_name;
         }
     }, {
         key: "getSourceDir",
@@ -131,6 +164,12 @@ var App = function () {
         value: async function getOutputDir() {
             var data = await this.prompt(DATA.Q_OUTPUT_DIR);
             this.output_dir = data.output_dir;
+        }
+    }, {
+        key: "getConfirm",
+        value: async function getConfirm() {
+            var data = await this.prompt(DATA.Q_CONFIRM);
+            this.confirm = data.confirm;
         }
     }, {
         key: "getExample",
