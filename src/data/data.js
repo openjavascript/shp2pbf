@@ -3,6 +3,64 @@ import {
     APPNAME
 } from './constant.js';
 
+
+export const Q_OUTPUT_WATER_DIR = [
+    { 
+        "name": "output_water_dir"
+        , "type": "input"
+        , "message": "请输入水域输出目录"
+        , "default": "./output/waters"
+    }
+];
+
+export const Q_WATER_PARAMS = [
+    { 
+        "name": "water_params"
+        , "type": "input"
+        , "message": "请输入水域编译参数"
+        , "default": "-z 15 -Z 10 --no-tile-size-limit --coalesce -n geodata -z 13"
+    }
+];
+
+
+export const Q_WATER_DIR = [
+    { 
+        "name": "water_dir"
+        , "type": "input"
+        , "message": "请输入水域目录"
+        , "default": "./city/water"
+    }
+];
+
+export const Q_OUTPUT_ROAD_DIR = [
+    { 
+        "name": "output_road_dir"
+        , "type": "input"
+        , "message": "请输入路网输出目录"
+        , "default": "./output/roads"
+    }
+];
+
+export const Q_ROAD_PARAMS = [
+    { 
+        "name": "road_params"
+        , "type": "input"
+        , "message": "请输入路网编译参数"
+        , "default": "-z 15 -Z 10 --no-tile-size-limit --coalesce -n geodata -z 15"
+    }
+];
+
+
+export const Q_ROAD_DIR = [
+    { 
+        "name": "road_dir"
+        , "type": "input"
+        , "message": "请输入路网目录"
+        , "default": "./city/road"
+    }
+];
+
+
 export const Q_OUTPUT_BUILDING_DIR = [
     { 
         "name": "output_building_dir"
@@ -36,8 +94,8 @@ export const Q_CITY_NAME = [
         "name": "city_name"
         , "type": "input"
         , "message": "请输入城市名称(留空表示处理所有城市)"
-        , "default": "macao"
-        //, "default": ""
+		, "default": "macao"
+		//, "default": ""
     }
 ];
 

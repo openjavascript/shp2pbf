@@ -73,9 +73,23 @@ export default class App {
         }).then( () => {
             return this.getOutputBuildingDir();
         }).then( () => {
+            return this.getRoadDir();
+        }).then( () => {
+            return this.getRoadParams();
+        }).then( () => {
+            return this.getOutputRoadDir();
+        }).then( () => {
+            return this.getWaterDir();
+        }).then( () => {
+            return this.getWaterParams();
+        }).then( () => {
+            return this.getOutputWaterDir();
+        }).then( () => {
             this.isGood = 1;
 
 			this.buildingList = this.resolveDir( this.building_dir, this.output_building_dir );
+			this.roadList = this.resolveDir( this.road_dir, this.output_road_dir );
+			this.waterList = this.resolveDir( this.water_dir, this.output_water_dir );
 
 			let space = '        ';
 
@@ -86,6 +100,19 @@ export default class App {
 				console.log( space + '    source:', item.source );
 				console.log( space + '    output:', item.output );
 			});
+			console.log()
+			console.log( space + 'road list:' );
+			this.roadList.map( ( item ) => {
+				console.log( space + '    source:', item.source );
+				console.log( space + '    output:', item.output );
+			});
+			console.log()
+			console.log( space + 'water list:' );
+			this.waterList.map( ( item ) => {
+				console.log( space + '    source:', item.source );
+				console.log( space + '    output:', item.output );
+			});
+
 
 			console.log();
 
@@ -207,6 +234,37 @@ export default class App {
 
 		return r;
 	}
+
+    async getOutputWaterDir(){
+        let data = await this.prompt( DATA.Q_OUTPUT_WATER_DIR );
+        this.output_water_dir  = data.output_water_dir;
+    }
+
+    async getWaterParams(){
+        let data = await this.prompt( DATA.Q_WATER_PARAMS );
+        this.water_params = data.water_params;
+    }
+
+    async getWaterDir(){
+        let data = await this.prompt( DATA.Q_WATER_DIR );
+        this.water_dir  = data.water_dir;
+    }
+
+
+    async getOutputRoadDir(){
+        let data = await this.prompt( DATA.Q_OUTPUT_ROAD_DIR );
+        this.output_road_dir  = data.output_road_dir;
+    }
+
+    async getRoadParams(){
+        let data = await this.prompt( DATA.Q_ROAD_PARAMS );
+        this.road_params = data.road_params;
+    }
+
+    async getRoadDir(){
+        let data = await this.prompt( DATA.Q_ROAD_DIR );
+        this.road_dir  = data.road_dir;
+    }
 
     async getOutputBuildingDir(){
         let data = await this.prompt( DATA.Q_OUTPUT_BUILDING_DIR );

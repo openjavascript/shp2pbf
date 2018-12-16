@@ -3,9 +3,51 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.Q_CONFIRM_INSTALL_TOOLS = exports.Q_CONFIRM = exports.Q_EXAMPLE = exports.Q_SOURCE_DIR = exports.Q_OUTPUT_DIR = exports.Q_CITY_NAME = exports.Q_BUILDING_DIR = exports.Q_BUILDING_PARAMS = exports.Q_OUTPUT_BUILDING_DIR = undefined;
+exports.Q_CONFIRM_INSTALL_TOOLS = exports.Q_CONFIRM = exports.Q_EXAMPLE = exports.Q_SOURCE_DIR = exports.Q_OUTPUT_DIR = exports.Q_CITY_NAME = exports.Q_BUILDING_DIR = exports.Q_BUILDING_PARAMS = exports.Q_OUTPUT_BUILDING_DIR = exports.Q_ROAD_DIR = exports.Q_ROAD_PARAMS = exports.Q_OUTPUT_ROAD_DIR = exports.Q_WATER_DIR = exports.Q_WATER_PARAMS = exports.Q_OUTPUT_WATER_DIR = undefined;
 
 var _constant = require("./constant.js");
+
+var Q_OUTPUT_WATER_DIR = exports.Q_OUTPUT_WATER_DIR = [{
+    "name": "output_water_dir",
+    "type": "input",
+    "message": "请输入水域输出目录",
+    "default": "./output/waters"
+}];
+
+var Q_WATER_PARAMS = exports.Q_WATER_PARAMS = [{
+    "name": "water_params",
+    "type": "input",
+    "message": "请输入水域编译参数",
+    "default": "-z 15 -Z 10 --no-tile-size-limit --coalesce -n geodata -z 13"
+}];
+
+var Q_WATER_DIR = exports.Q_WATER_DIR = [{
+    "name": "water_dir",
+    "type": "input",
+    "message": "请输入水域目录",
+    "default": "./city/water"
+}];
+
+var Q_OUTPUT_ROAD_DIR = exports.Q_OUTPUT_ROAD_DIR = [{
+    "name": "output_road_dir",
+    "type": "input",
+    "message": "请输入路网输出目录",
+    "default": "./output/roads"
+}];
+
+var Q_ROAD_PARAMS = exports.Q_ROAD_PARAMS = [{
+    "name": "road_params",
+    "type": "input",
+    "message": "请输入路网编译参数",
+    "default": "-z 15 -Z 10 --no-tile-size-limit --coalesce -n geodata -z 15"
+}];
+
+var Q_ROAD_DIR = exports.Q_ROAD_DIR = [{
+    "name": "road_dir",
+    "type": "input",
+    "message": "请输入路网目录",
+    "default": "./city/road"
+}];
 
 var Q_OUTPUT_BUILDING_DIR = exports.Q_OUTPUT_BUILDING_DIR = [{
     "name": "output_building_dir",
