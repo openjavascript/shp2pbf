@@ -120,7 +120,30 @@ var App = function () {
 
                 console.log(tmp);
 
+                var space = '        ';
+
+                console.log(space + 'os-release:', _this.osName);
+
                 //this.isGood = 0;
+                return new Promise(function (resolve) {
+                    setTimeout(resolve, 1);
+                });
+            }).then(function () {
+
+                if (!(_shelljs2.default.which('tippecanoe') && _shelljs2.default.which('ogrinfo') && _shelljs2.default.which('ogr2ogr')
+                //&& shell.which( 'notexitst' )  
+                )) {
+                    return _this.getConfirmInstallTools();
+                }
+
+                return new Promise(function (resolve) {
+                    setTimeout(resolve, 1);
+                });
+            }).then(function () {
+                if (_this.confirm_install_tools && _this.confirm_install_tools == 'yes') {
+                    var shellFile = "/bin/bash " + _this.appRoot + "/shell/" + _this.osName + ".sh";
+                    _shelljs2.default.exec(shellFile);
+                }
                 return new Promise(function (resolve) {
                     setTimeout(resolve, 1);
                 });
@@ -169,7 +192,8 @@ var App = function () {
             }
             if (!obj.src) return r;
 
-            tmp = _path2.default.resolve(this.projectRoot, output, cityName.replace(/shi$/i, '') + 'shi');
+            obj.cityName = cityName;
+            tmp = _path2.default.resolve(this.projectRoot, output, obj.cityName.replace(/shi$/i, '') + 'shi');
 
             obj.out = tmp;
 
@@ -187,9 +211,38 @@ var App = function () {
             return r;
         }
     }, {
+        key: "getDirCityName",
+        value: function getDirCityName(dir) {
+            var r = '';
+
+            r = dir.replace(/.*\//, '');
+            r = r.replace(/\_.*/, '');
+            r = r.replace(/shi$/, '');
+
+            return r;
+        }
+    }, {
         key: "resolveDirBatch",
         value: function resolveDirBatch(src, output) {
+            var _this2 = this;
+
             var r = [];
+
+            var dir = _path2.default.resolve(this.projectRoot, src);
+
+            var dirList = _fsExtra2.default.readdirSync(dir);
+
+            var p = this;
+
+            dirList.map(function (item) {
+                var obj = {};
+
+                obj.src = _path2.default.resolve(dir, item);
+                obj.cityName = p.getDirCityName(item);
+                obj.out = _path2.default.resolve(_this2.projectRoot, output, obj.cityName.replace(/shi$/i, '') + 'shi');
+
+                r.push(obj);
+            });
 
             return r;
         }
@@ -380,7 +433,7 @@ var App = function () {
             return getOutputDir;
         }()
     }, {
-        key: "getConfirm",
+        key: "getConfirmInstallTools",
         value: function () {
             var _ref7 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
                 var data;
@@ -389,12 +442,12 @@ var App = function () {
                         switch (_context7.prev = _context7.next) {
                             case 0:
                                 _context7.next = 2;
-                                return this.prompt(DATA.Q_CONFIRM);
+                                return this.prompt(DATA.Q_CONFIRM_INSTALL_TOOLS);
 
                             case 2:
                                 data = _context7.sent;
 
-                                this.confirm = data.confirm;
+                                this.confirm_install_tools = data.confirm_install_tools;
 
                             case 4:
                             case "end":
@@ -404,14 +457,14 @@ var App = function () {
                 }, _callee7, this);
             }));
 
-            function getConfirm() {
+            function getConfirmInstallTools() {
                 return _ref7.apply(this, arguments);
             }
 
-            return getConfirm;
+            return getConfirmInstallTools;
         }()
     }, {
-        key: "getExample",
+        key: "getConfirm",
         value: function () {
             var _ref8 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
                 var data;
@@ -420,12 +473,12 @@ var App = function () {
                         switch (_context8.prev = _context8.next) {
                             case 0:
                                 _context8.next = 2;
-                                return this.prompt(DATA.Q_EXAMPLE);
+                                return this.prompt(DATA.Q_CONFIRM);
 
                             case 2:
                                 data = _context8.sent;
 
-                                this.example = data.example;
+                                this.confirm = data.confirm;
 
                             case 4:
                             case "end":
@@ -435,8 +488,39 @@ var App = function () {
                 }, _callee8, this);
             }));
 
-            function getExample() {
+            function getConfirm() {
                 return _ref8.apply(this, arguments);
+            }
+
+            return getConfirm;
+        }()
+    }, {
+        key: "getExample",
+        value: function () {
+            var _ref9 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
+                var data;
+                return regeneratorRuntime.wrap(function _callee9$(_context9) {
+                    while (1) {
+                        switch (_context9.prev = _context9.next) {
+                            case 0:
+                                _context9.next = 2;
+                                return this.prompt(DATA.Q_EXAMPLE);
+
+                            case 2:
+                                data = _context9.sent;
+
+                                this.example = data.example;
+
+                            case 4:
+                            case "end":
+                                return _context9.stop();
+                        }
+                    }
+                }, _callee9, this);
+            }));
+
+            function getExample() {
+                return _ref9.apply(this, arguments);
             }
 
             return getExample;
@@ -467,6 +551,6 @@ var App = function () {
 }();
 
 exports.default = App;
-function init(APP_ROOT, PROJECT_ROOT, packJSON) {
-    var AppIns = new App(APP_ROOT, PROJECT_ROOT, packJSON);
+function init(APP_ROOT, PROJECT_ROOT, packJSON, osName) {
+    var AppIns = new App(APP_ROOT, PROJECT_ROOT, packJSON, osName);
 }

@@ -36,8 +36,8 @@ export const Q_CITY_NAME = [
         "name": "city_name"
         , "type": "input"
         , "message": "请输入城市名称(留空表示处理所有城市)"
-        //, "default": "macao"
-        , "default": ""
+        , "default": "macao"
+        //, "default": ""
     }
 ];
 
@@ -76,6 +76,17 @@ export const Q_CONFIRM = [
         , "default": 'yes'
     }
 ];
+
+export const Q_CONFIRM_INSTALL_TOOLS = [
+    { 
+        "name": "confirm_install_tools"
+        , "type": "list"
+        , "message": "缺少地图编译工具，是否安装？(仅支持Ubuntu、Centos)"
+        , "choices": [ 'yes', 'no' ]
+        , "default": 'yes'
+    }
+];
+
 
 /*
 export const Q_INIT_PUBLIC = [

@@ -79,8 +79,36 @@ export default class App {
 
 			console.log( tmp );
 
+			let space = '        ';
+
+			console.log( space + 'os-release:', this.osName );
+
+
+
             //this.isGood = 0;
-            return new Promise( function( resolve ){
+            return new Promise( ( resolve ) => {
+                setTimeout( resolve, 1);
+            });
+        }).then( () => {
+
+			if( !( 
+				shell.which( 'tippecanoe' )  
+				&& shell.which( 'ogrinfo' )  
+				&& shell.which( 'ogr2ogr' )  
+				//&& shell.which( 'notexitst' )  
+			)){
+				return this.getConfirmInstallTools();
+			}
+
+            return new Promise( ( resolve ) => {
+                setTimeout( resolve, 1);
+            });
+        }).then( () => {
+			if( this.confirm_install_tools && this.confirm_install_tools == 'yes' ){
+				let shellFile = `/bin/bash ${this.appRoot}/shell/${this.osName}.sh`;
+				shell.exec( shellFile ); 
+			}
+            return new Promise( ( resolve ) => {
                 setTimeout( resolve, 1);
             });
         }).then( () => {
@@ -126,7 +154,8 @@ export default class App {
 		}
 		if( !obj.src ) return r;
 
-		tmp = path.resolve( this.projectRoot, output,  cityName.replace( /shi$/i, '' ) + 'shi'  );
+		obj.cityName = cityName;
+		tmp = path.resolve( this.projectRoot, output,  obj.cityName.replace( /shi$/i, '' ) + 'shi'  );
 
 		obj.out = tmp;
 
@@ -143,8 +172,34 @@ export default class App {
 		return r;
 	}
 
+	getDirCityName( dir ) {
+		let r = '';
+
+		r = dir.replace( /.*\//, '' );
+		r = r.replace( /\_.*/, '' );
+		r = r.replace( /shi$/, '' );
+
+		return r;
+	}
+
 	resolveDirBatch( src, output ){
 		let r = [];
+
+		let dir =  path.resolve( this.projectRoot, src ) ;
+
+		let dirList = fs.readdirSync( dir );
+
+		let p = this;
+
+		dirList.map( (item)=> {
+			let obj = {};
+
+			obj.src = path.resolve( dir, item );
+			obj.cityName = p.getDirCityName( item );
+			obj.out = path.resolve( this.projectRoot, output,  obj.cityName.replace( /shi$/i, '' ) + 'shi'  );
+
+			r.push( obj );
+		});
 
 		return r;
 	}
@@ -177,6 +232,11 @@ export default class App {
     async getOutputDir(){
         let data = await this.prompt( DATA.Q_OUTPUT_DIR);
         this.output_dir = data.output_dir;
+    }
+
+    async getConfirmInstallTools(){
+        let data = await this.prompt( DATA.Q_CONFIRM_INSTALL_TOOLS );
+        this.confirm_install_tools = data.confirm_install_tools;
     }
 
     async getConfirm(){
@@ -216,7 +276,7 @@ export default class App {
 
 }
 
-export function init( APP_ROOT, PROJECT_ROOT, packJSON ){
-    let AppIns = new App( APP_ROOT, PROJECT_ROOT, packJSON ); 
+export function init( APP_ROOT, PROJECT_ROOT, packJSON, osName ){
+    let AppIns = new App( APP_ROOT, PROJECT_ROOT, packJSON, osName ); 
 }
 

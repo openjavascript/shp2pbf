@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.Q_CONFIRM = exports.Q_EXAMPLE = exports.Q_SOURCE_DIR = exports.Q_OUTPUT_DIR = exports.Q_CITY_NAME = exports.Q_BUILDING_DIR = exports.Q_BUILDING_PARAMS = exports.Q_OUTPUT_BUILDING_DIR = undefined;
+exports.Q_CONFIRM_INSTALL_TOOLS = exports.Q_CONFIRM = exports.Q_EXAMPLE = exports.Q_SOURCE_DIR = exports.Q_OUTPUT_DIR = exports.Q_CITY_NAME = exports.Q_BUILDING_DIR = exports.Q_BUILDING_PARAMS = exports.Q_OUTPUT_BUILDING_DIR = undefined;
 
 var _constant = require("./constant.js");
 
@@ -31,9 +31,9 @@ var Q_BUILDING_DIR = exports.Q_BUILDING_DIR = [{
 var Q_CITY_NAME = exports.Q_CITY_NAME = [{
     "name": "city_name",
     "type": "input",
-    "message": "请输入城市名称(留空表示处理所有城市)"
-    //, "default": "macao"
-    , "default": ""
+    "message": "请输入城市名称(留空表示处理所有城市)",
+    "default": "macao"
+    //, "default": ""
 }];
 
 var Q_OUTPUT_DIR = exports.Q_OUTPUT_DIR = [{
@@ -60,6 +60,14 @@ var Q_CONFIRM = exports.Q_CONFIRM = [{
     "name": "confirm",
     "type": "list",
     "message": "开始执行操作？",
+    "choices": ['yes', 'no'],
+    "default": 'yes'
+}];
+
+var Q_CONFIRM_INSTALL_TOOLS = exports.Q_CONFIRM_INSTALL_TOOLS = [{
+    "name": "confirm_install_tools",
+    "type": "list",
+    "message": "缺少地图编译工具，是否安装？(仅支持Ubuntu、Centos)",
     "choices": ['yes', 'no'],
     "default": 'yes'
 }];
