@@ -135,7 +135,6 @@ export default class ProjectExample extends Project {
 
     initBuilding(){
         if( !( this.app.buildingList && this.app.buildingList.length) ) return;
-        return;
 
         this.app.buildingList.map( ( item ) => {
             let pattern = `${item.source}/**/*.geojson`;

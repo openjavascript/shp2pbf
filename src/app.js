@@ -126,6 +126,7 @@ export default class App {
 				shell.which( 'tippecanoe' )  
 				&& shell.which( 'ogrinfo' )  
 				&& shell.which( 'ogr2ogr' )  
+				&& shell.which( 'gzip' )  
 				//&& shell.which( 'notexitst' )  
 			)){
 				return this.getConfirmInstallTools();

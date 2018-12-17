@@ -185,7 +185,6 @@ var ProjectExample = function (_Project) {
             var _this4 = this;
 
             if (!(this.app.buildingList && this.app.buildingList.length)) return;
-            return;
 
             this.app.buildingList.map(function (item) {
                 var pattern = item.source + "/**/*.geojson";

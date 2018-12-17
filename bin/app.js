@@ -162,7 +162,7 @@ var App = function () {
                 });
             }).then(function () {
 
-                if (!(_shelljs2.default.which('tippecanoe') && _shelljs2.default.which('ogrinfo') && _shelljs2.default.which('ogr2ogr')
+                if (!(_shelljs2.default.which('tippecanoe') && _shelljs2.default.which('ogrinfo') && _shelljs2.default.which('ogr2ogr') && _shelljs2.default.which('gzip')
                 //&& shell.which( 'notexitst' )  
                 )) {
                     return _this.getConfirmInstallTools();

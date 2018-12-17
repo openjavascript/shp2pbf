@@ -73,9 +73,9 @@ var Q_BUILDING_DIR = exports.Q_BUILDING_DIR = [{
 var Q_CITY_NAME = exports.Q_CITY_NAME = [{
     "name": "city_name",
     "type": "input",
-    "message": "请输入城市名称(留空表示处理所有城市)",
-    "default": "macao"
-    //, "default": ""
+    "message": "请输入城市名称(留空表示处理所有城市)"
+    //, "default": "macao"
+    , "default": ""
 }];
 
 var Q_OUTPUT_DIR = exports.Q_OUTPUT_DIR = [{
