@@ -3,9 +3,16 @@
 Object.defineProperty(exports, "__esModule", {
     value: true
 });
-exports.Q_CONFIRM_INSTALL_TOOLS = exports.Q_CONFIRM = exports.Q_EXAMPLE = exports.Q_SOURCE_DIR = exports.Q_OUTPUT_DIR = exports.Q_CITY_NAME = exports.Q_BUILDING_DIR = exports.Q_BUILDING_PARAMS = exports.Q_OUTPUT_BUILDING_DIR = exports.Q_ROAD_DIR = exports.Q_ROAD_PARAMS = exports.Q_OUTPUT_ROAD_DIR = exports.Q_WATER_DIR = exports.Q_WATER_PARAMS = exports.Q_OUTPUT_WATER_DIR = undefined;
+exports.Q_CONFIRM_INSTALL_TOOLS = exports.Q_CONFIRM = exports.Q_EXAMPLE = exports.Q_SOURCE_DIR = exports.Q_OUTPUT_DIR = exports.Q_CITY_NAME = exports.Q_BUILDING_DIR = exports.Q_BUILDING_PARAMS = exports.Q_OUTPUT_BUILDING_DIR = exports.Q_ROAD_DIR = exports.Q_ROAD_PARAMS = exports.Q_OUTPUT_ROAD_DIR = exports.Q_WATER_DIR = exports.Q_WATER_PARAMS = exports.Q_OUTPUT_WATER_DIR = exports.Q_CONFIG_FILE = undefined;
 
 var _constant = require("./constant.js");
+
+var Q_CONFIG_FILE = exports.Q_CONFIG_FILE = [{
+    "name": "config_file",
+    "type": "input",
+    "message": "请输入配置文件路径",
+    "default": "shp2pbf.json"
+}];
 
 var Q_OUTPUT_WATER_DIR = exports.Q_OUTPUT_WATER_DIR = [{
     "name": "output_water_dir",

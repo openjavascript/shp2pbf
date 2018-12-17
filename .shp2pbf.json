@@ -1,0 +1,16 @@
+{
+    "autostart": false
+	, "city_name": ""
+
+	, "building_dir": "./city/building"
+	, "building_params": "-z 15 -Z 10 --no-tile-size-limit --coalesce -n geodata -z 15 -l building"
+	, "output_building_dir": "./output/building"
+
+	, "road_dir": "./city/road"
+	, "road_params": "-z 15 -Z 10 --no-tile-size-limit --coalesce -n geodata -z 15"
+	, "output_road_dir": "./output/roads"
+
+	, "water_dir": "./city/water"
+	, "water_params": "-z 15 -Z 10 --no-tile-size-limit --coalesce -n geodata -z 13"
+	, "output_water_dir": "./output/waters"
+}

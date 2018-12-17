@@ -60,29 +60,77 @@ export default class App {
 
         new Promise( function( resolve ){
             setTimeout( resolve, 1);
+        }).then( () => {
+            this.readConfigJson( DATA.Q_CONFIG_FILE[0].default );
+
+            if( this.config ){
+                return new Promise( function( resolve ){ setTimeout( resolve, 1); });
+            }
+            console.log();
+            return this.getConfigFile();
         //}).then( () => {
 /*            return this.getSourceDir();*/
         //}).then( () => {
             //return this.getOutputDir();
         }).then( () => {
+			if( this.config && "city_name" in this.config ){
+				this.city_name = this.config.city_name;
+                return new Promise( function( resolve ){ setTimeout( resolve, 1); });
+			}
             return this.getCityName();
         }).then( () => {
+			if( this.config && this.config.building_dir ){
+				this.building_dir = this.config.building_dir;
+                return new Promise( function( resolve ){ setTimeout( resolve, 1); });
+			}
             return this.getBuildingDir();
         }).then( () => {
+			if( this.config && this.config.building_params ){
+				this.building_params = this.config.building_params;
+                return new Promise( function( resolve ){ setTimeout( resolve, 1); });
+			}
             return this.getBuildingParams();
         }).then( () => {
+			if( this.config && this.config.output_building_dir ){
+				this.output_building_dir = this.config.output_building_dir;
+                return new Promise( function( resolve ){ setTimeout( resolve, 1); });
+			}
             return this.getOutputBuildingDir();
         }).then( () => {
+			if( this.config && this.config.road_dir ){
+				this.road_dir = this.config.road_dir;
+                return new Promise( function( resolve ){ setTimeout( resolve, 1); });
+			}
             return this.getRoadDir();
         }).then( () => {
+			if( this.config && this.config.road_params ){
+				this.road_params = this.config.road_params;
+                return new Promise( function( resolve ){ setTimeout( resolve, 1); });
+			}
             return this.getRoadParams();
         }).then( () => {
+			if( this.config && this.config.output_road_dir ){
+				this.output_road_dir = this.config.output_road_dir;
+                return new Promise( function( resolve ){ setTimeout( resolve, 1); });
+			}
             return this.getOutputRoadDir();
         }).then( () => {
+			if( this.config && this.config.water_dir ){
+				this.water_dir = this.config.water_dir;
+                return new Promise( function( resolve ){ setTimeout( resolve, 1); });
+			}
             return this.getWaterDir();
         }).then( () => {
+			if( this.config && this.config.water_params ){
+				this.water_params = this.config.water_params;
+                return new Promise( function( resolve ){ setTimeout( resolve, 1); });
+			}
             return this.getWaterParams();
         }).then( () => {
+			if( this.config && this.config.output_water_dir ){
+				this.output_water_dir = this.config.output_water_dir;
+                return new Promise( function( resolve ){ setTimeout( resolve, 1); });
+			}
             return this.getOutputWaterDir();
         }).then( () => {
             this.isGood = 1;
@@ -148,6 +196,14 @@ export default class App {
 				this.confirm = 'no';
 				return;
 			}
+
+            if( this.config && this.config.autostart){
+                this.confirm = 'yes';
+                return new Promise( function( resolve ){
+                    setTimeout( resolve, 1);
+                });
+            }
+
             return this.getConfirm();
         }).then( ()=>{
 			 if( this.confirm == 'no' ) return;
@@ -235,6 +291,19 @@ export default class App {
 
 		return r;
 	}
+
+    async getConfigFile(){
+        let data = await this.prompt( DATA.Q_CONFIG_FILE );
+        this.config_file = data.config_file;
+        this.readConfigJson( this.config_file );
+    }
+
+    readConfigJson( fileName ){
+        let configFilePath = path.resolve( [ this.projectRoot, fileName ].join('/') );
+        if( fs.existsSync( configFilePath ) ){
+            this.config = fs.readJsonSync( configFilePath );
+        }
+    }
 
     async getOutputWaterDir(){
         let data = await this.prompt( DATA.Q_OUTPUT_WATER_DIR );
@@ -330,10 +399,12 @@ export default class App {
         console.log( info( `github: ${this.packJSON.repository.url}` ) );
 
         console.log();
-        console.log( info( '使用:' ) );
-        console.log( info( '     方法1: 使用说明' ) );
+        console.log( ( '使用:' ) );
+        console.log( ( '     方法1: 切换到项目根目录, 然后执行命令 shp2pbf' ) );
+        console.log( info('         cd projectRoot && shp2pbf ') ); 
         console.log();
-        console.log( info( '     方法2: 使用说明' ) );
+        console.log( ( '     方法2: 使用 shp2pbf 路径, 支持相对路径' ) );
+        console.log( info('         shp2pbf /var/www/your_project_root ' ) ); 
         console.log();
     }
 

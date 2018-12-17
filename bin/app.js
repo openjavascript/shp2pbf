@@ -101,29 +101,99 @@ var App = function () {
 
             new Promise(function (resolve) {
                 setTimeout(resolve, 1);
+            }).then(function () {
+                _this.readConfigJson(DATA.Q_CONFIG_FILE[0].default);
+
+                if (_this.config) {
+                    return new Promise(function (resolve) {
+                        setTimeout(resolve, 1);
+                    });
+                }
+                console.log();
+                return _this.getConfigFile();
                 //}).then( () => {
                 /*            return this.getSourceDir();*/
                 //}).then( () => {
                 //return this.getOutputDir();
             }).then(function () {
+                if (_this.config && "city_name" in _this.config) {
+                    _this.city_name = _this.config.city_name;
+                    return new Promise(function (resolve) {
+                        setTimeout(resolve, 1);
+                    });
+                }
                 return _this.getCityName();
             }).then(function () {
+                if (_this.config && _this.config.building_dir) {
+                    _this.building_dir = _this.config.building_dir;
+                    return new Promise(function (resolve) {
+                        setTimeout(resolve, 1);
+                    });
+                }
                 return _this.getBuildingDir();
             }).then(function () {
+                if (_this.config && _this.config.building_params) {
+                    _this.building_params = _this.config.building_params;
+                    return new Promise(function (resolve) {
+                        setTimeout(resolve, 1);
+                    });
+                }
                 return _this.getBuildingParams();
             }).then(function () {
+                if (_this.config && _this.config.output_building_dir) {
+                    _this.output_building_dir = _this.config.output_building_dir;
+                    return new Promise(function (resolve) {
+                        setTimeout(resolve, 1);
+                    });
+                }
                 return _this.getOutputBuildingDir();
             }).then(function () {
+                if (_this.config && _this.config.road_dir) {
+                    _this.road_dir = _this.config.road_dir;
+                    return new Promise(function (resolve) {
+                        setTimeout(resolve, 1);
+                    });
+                }
                 return _this.getRoadDir();
             }).then(function () {
+                if (_this.config && _this.config.road_params) {
+                    _this.road_params = _this.config.road_params;
+                    return new Promise(function (resolve) {
+                        setTimeout(resolve, 1);
+                    });
+                }
                 return _this.getRoadParams();
             }).then(function () {
+                if (_this.config && _this.config.output_road_dir) {
+                    _this.output_road_dir = _this.config.output_road_dir;
+                    return new Promise(function (resolve) {
+                        setTimeout(resolve, 1);
+                    });
+                }
                 return _this.getOutputRoadDir();
             }).then(function () {
+                if (_this.config && _this.config.water_dir) {
+                    _this.water_dir = _this.config.water_dir;
+                    return new Promise(function (resolve) {
+                        setTimeout(resolve, 1);
+                    });
+                }
                 return _this.getWaterDir();
             }).then(function () {
+                if (_this.config && _this.config.water_params) {
+                    _this.water_params = _this.config.water_params;
+                    return new Promise(function (resolve) {
+                        setTimeout(resolve, 1);
+                    });
+                }
                 return _this.getWaterParams();
             }).then(function () {
+                if (_this.config && _this.config.output_water_dir) {
+                    _this.output_water_dir = _this.config.output_water_dir;
+                    return new Promise(function (resolve) {
+                        setTimeout(resolve, 1);
+                    });
+                }
                 return _this.getOutputWaterDir();
             }).then(function () {
                 _this.isGood = 1;
@@ -184,6 +254,14 @@ var App = function () {
                     _this.confirm = 'no';
                     return;
                 }
+
+                if (_this.config && _this.config.autostart) {
+                    _this.confirm = 'yes';
+                    return new Promise(function (resolve) {
+                        setTimeout(resolve, 1);
+                    });
+                }
+
                 return _this.getConfirm();
             }).then(function () {
                 if (_this.confirm == 'no') return;
@@ -279,7 +357,7 @@ var App = function () {
             return r;
         }
     }, {
-        key: "getOutputWaterDir",
+        key: "getConfigFile",
         value: function () {
             var _ref = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee() {
                 var data;
@@ -288,14 +366,15 @@ var App = function () {
                         switch (_context.prev = _context.next) {
                             case 0:
                                 _context.next = 2;
-                                return this.prompt(DATA.Q_OUTPUT_WATER_DIR);
+                                return this.prompt(DATA.Q_CONFIG_FILE);
 
                             case 2:
                                 data = _context.sent;
 
-                                this.output_water_dir = data.output_water_dir;
+                                this.config_file = data.config_file;
+                                this.readConfigJson(this.config_file);
 
-                            case 4:
+                            case 5:
                             case "end":
                                 return _context.stop();
                         }
@@ -303,14 +382,22 @@ var App = function () {
                 }, _callee, this);
             }));
 
-            function getOutputWaterDir() {
+            function getConfigFile() {
                 return _ref.apply(this, arguments);
             }
 
-            return getOutputWaterDir;
+            return getConfigFile;
         }()
     }, {
-        key: "getWaterParams",
+        key: "readConfigJson",
+        value: function readConfigJson(fileName) {
+            var configFilePath = _path2.default.resolve([this.projectRoot, fileName].join('/'));
+            if (_fsExtra2.default.existsSync(configFilePath)) {
+                this.config = _fsExtra2.default.readJsonSync(configFilePath);
+            }
+        }
+    }, {
+        key: "getOutputWaterDir",
         value: function () {
             var _ref2 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee2() {
                 var data;
@@ -319,12 +406,12 @@ var App = function () {
                         switch (_context2.prev = _context2.next) {
                             case 0:
                                 _context2.next = 2;
-                                return this.prompt(DATA.Q_WATER_PARAMS);
+                                return this.prompt(DATA.Q_OUTPUT_WATER_DIR);
 
                             case 2:
                                 data = _context2.sent;
 
-                                this.water_params = data.water_params;
+                                this.output_water_dir = data.output_water_dir;
 
                             case 4:
                             case "end":
@@ -334,14 +421,14 @@ var App = function () {
                 }, _callee2, this);
             }));
 
-            function getWaterParams() {
+            function getOutputWaterDir() {
                 return _ref2.apply(this, arguments);
             }
 
-            return getWaterParams;
+            return getOutputWaterDir;
         }()
     }, {
-        key: "getWaterDir",
+        key: "getWaterParams",
         value: function () {
             var _ref3 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee3() {
                 var data;
@@ -350,12 +437,12 @@ var App = function () {
                         switch (_context3.prev = _context3.next) {
                             case 0:
                                 _context3.next = 2;
-                                return this.prompt(DATA.Q_WATER_DIR);
+                                return this.prompt(DATA.Q_WATER_PARAMS);
 
                             case 2:
                                 data = _context3.sent;
 
-                                this.water_dir = data.water_dir;
+                                this.water_params = data.water_params;
 
                             case 4:
                             case "end":
@@ -365,14 +452,14 @@ var App = function () {
                 }, _callee3, this);
             }));
 
-            function getWaterDir() {
+            function getWaterParams() {
                 return _ref3.apply(this, arguments);
             }
 
-            return getWaterDir;
+            return getWaterParams;
         }()
     }, {
-        key: "getOutputRoadDir",
+        key: "getWaterDir",
         value: function () {
             var _ref4 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee4() {
                 var data;
@@ -381,12 +468,12 @@ var App = function () {
                         switch (_context4.prev = _context4.next) {
                             case 0:
                                 _context4.next = 2;
-                                return this.prompt(DATA.Q_OUTPUT_ROAD_DIR);
+                                return this.prompt(DATA.Q_WATER_DIR);
 
                             case 2:
                                 data = _context4.sent;
 
-                                this.output_road_dir = data.output_road_dir;
+                                this.water_dir = data.water_dir;
 
                             case 4:
                             case "end":
@@ -396,14 +483,14 @@ var App = function () {
                 }, _callee4, this);
             }));
 
-            function getOutputRoadDir() {
+            function getWaterDir() {
                 return _ref4.apply(this, arguments);
             }
 
-            return getOutputRoadDir;
+            return getWaterDir;
         }()
     }, {
-        key: "getRoadParams",
+        key: "getOutputRoadDir",
         value: function () {
             var _ref5 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee5() {
                 var data;
@@ -412,12 +499,12 @@ var App = function () {
                         switch (_context5.prev = _context5.next) {
                             case 0:
                                 _context5.next = 2;
-                                return this.prompt(DATA.Q_ROAD_PARAMS);
+                                return this.prompt(DATA.Q_OUTPUT_ROAD_DIR);
 
                             case 2:
                                 data = _context5.sent;
 
-                                this.road_params = data.road_params;
+                                this.output_road_dir = data.output_road_dir;
 
                             case 4:
                             case "end":
@@ -427,14 +514,14 @@ var App = function () {
                 }, _callee5, this);
             }));
 
-            function getRoadParams() {
+            function getOutputRoadDir() {
                 return _ref5.apply(this, arguments);
             }
 
-            return getRoadParams;
+            return getOutputRoadDir;
         }()
     }, {
-        key: "getRoadDir",
+        key: "getRoadParams",
         value: function () {
             var _ref6 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee6() {
                 var data;
@@ -443,12 +530,12 @@ var App = function () {
                         switch (_context6.prev = _context6.next) {
                             case 0:
                                 _context6.next = 2;
-                                return this.prompt(DATA.Q_ROAD_DIR);
+                                return this.prompt(DATA.Q_ROAD_PARAMS);
 
                             case 2:
                                 data = _context6.sent;
 
-                                this.road_dir = data.road_dir;
+                                this.road_params = data.road_params;
 
                             case 4:
                             case "end":
@@ -458,14 +545,14 @@ var App = function () {
                 }, _callee6, this);
             }));
 
-            function getRoadDir() {
+            function getRoadParams() {
                 return _ref6.apply(this, arguments);
             }
 
-            return getRoadDir;
+            return getRoadParams;
         }()
     }, {
-        key: "getOutputBuildingDir",
+        key: "getRoadDir",
         value: function () {
             var _ref7 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee7() {
                 var data;
@@ -474,12 +561,12 @@ var App = function () {
                         switch (_context7.prev = _context7.next) {
                             case 0:
                                 _context7.next = 2;
-                                return this.prompt(DATA.Q_OUTPUT_BUILDING_DIR);
+                                return this.prompt(DATA.Q_ROAD_DIR);
 
                             case 2:
                                 data = _context7.sent;
 
-                                this.output_building_dir = data.output_building_dir;
+                                this.road_dir = data.road_dir;
 
                             case 4:
                             case "end":
@@ -489,14 +576,14 @@ var App = function () {
                 }, _callee7, this);
             }));
 
-            function getOutputBuildingDir() {
+            function getRoadDir() {
                 return _ref7.apply(this, arguments);
             }
 
-            return getOutputBuildingDir;
+            return getRoadDir;
         }()
     }, {
-        key: "getBuildingParams",
+        key: "getOutputBuildingDir",
         value: function () {
             var _ref8 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee8() {
                 var data;
@@ -505,12 +592,12 @@ var App = function () {
                         switch (_context8.prev = _context8.next) {
                             case 0:
                                 _context8.next = 2;
-                                return this.prompt(DATA.Q_BUILDING_PARAMS);
+                                return this.prompt(DATA.Q_OUTPUT_BUILDING_DIR);
 
                             case 2:
                                 data = _context8.sent;
 
-                                this.building_params = data.building_params;
+                                this.output_building_dir = data.output_building_dir;
 
                             case 4:
                             case "end":
@@ -520,14 +607,14 @@ var App = function () {
                 }, _callee8, this);
             }));
 
-            function getBuildingParams() {
+            function getOutputBuildingDir() {
                 return _ref8.apply(this, arguments);
             }
 
-            return getBuildingParams;
+            return getOutputBuildingDir;
         }()
     }, {
-        key: "getBuildingDir",
+        key: "getBuildingParams",
         value: function () {
             var _ref9 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee9() {
                 var data;
@@ -536,12 +623,12 @@ var App = function () {
                         switch (_context9.prev = _context9.next) {
                             case 0:
                                 _context9.next = 2;
-                                return this.prompt(DATA.Q_BUILDING_DIR);
+                                return this.prompt(DATA.Q_BUILDING_PARAMS);
 
                             case 2:
                                 data = _context9.sent;
 
-                                this.building_dir = data.building_dir;
+                                this.building_params = data.building_params;
 
                             case 4:
                             case "end":
@@ -551,14 +638,14 @@ var App = function () {
                 }, _callee9, this);
             }));
 
-            function getBuildingDir() {
+            function getBuildingParams() {
                 return _ref9.apply(this, arguments);
             }
 
-            return getBuildingDir;
+            return getBuildingParams;
         }()
     }, {
-        key: "getCityName",
+        key: "getBuildingDir",
         value: function () {
             var _ref10 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee10() {
                 var data;
@@ -567,12 +654,12 @@ var App = function () {
                         switch (_context10.prev = _context10.next) {
                             case 0:
                                 _context10.next = 2;
-                                return this.prompt(DATA.Q_CITY_NAME);
+                                return this.prompt(DATA.Q_BUILDING_DIR);
 
                             case 2:
                                 data = _context10.sent;
 
-                                this.city_name = data.city_name;
+                                this.building_dir = data.building_dir;
 
                             case 4:
                             case "end":
@@ -582,14 +669,14 @@ var App = function () {
                 }, _callee10, this);
             }));
 
-            function getCityName() {
+            function getBuildingDir() {
                 return _ref10.apply(this, arguments);
             }
 
-            return getCityName;
+            return getBuildingDir;
         }()
     }, {
-        key: "getSourceDir",
+        key: "getCityName",
         value: function () {
             var _ref11 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee11() {
                 var data;
@@ -598,12 +685,12 @@ var App = function () {
                         switch (_context11.prev = _context11.next) {
                             case 0:
                                 _context11.next = 2;
-                                return this.prompt(DATA.Q_SOURCE_DIR);
+                                return this.prompt(DATA.Q_CITY_NAME);
 
                             case 2:
                                 data = _context11.sent;
 
-                                this.source_dir = data.source_dir;
+                                this.city_name = data.city_name;
 
                             case 4:
                             case "end":
@@ -613,14 +700,14 @@ var App = function () {
                 }, _callee11, this);
             }));
 
-            function getSourceDir() {
+            function getCityName() {
                 return _ref11.apply(this, arguments);
             }
 
-            return getSourceDir;
+            return getCityName;
         }()
     }, {
-        key: "getOutputDir",
+        key: "getSourceDir",
         value: function () {
             var _ref12 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee12() {
                 var data;
@@ -629,12 +716,12 @@ var App = function () {
                         switch (_context12.prev = _context12.next) {
                             case 0:
                                 _context12.next = 2;
-                                return this.prompt(DATA.Q_OUTPUT_DIR);
+                                return this.prompt(DATA.Q_SOURCE_DIR);
 
                             case 2:
                                 data = _context12.sent;
 
-                                this.output_dir = data.output_dir;
+                                this.source_dir = data.source_dir;
 
                             case 4:
                             case "end":
@@ -644,14 +731,14 @@ var App = function () {
                 }, _callee12, this);
             }));
 
-            function getOutputDir() {
+            function getSourceDir() {
                 return _ref12.apply(this, arguments);
             }
 
-            return getOutputDir;
+            return getSourceDir;
         }()
     }, {
-        key: "getConfirmInstallTools",
+        key: "getOutputDir",
         value: function () {
             var _ref13 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee13() {
                 var data;
@@ -660,12 +747,12 @@ var App = function () {
                         switch (_context13.prev = _context13.next) {
                             case 0:
                                 _context13.next = 2;
-                                return this.prompt(DATA.Q_CONFIRM_INSTALL_TOOLS);
+                                return this.prompt(DATA.Q_OUTPUT_DIR);
 
                             case 2:
                                 data = _context13.sent;
 
-                                this.confirm_install_tools = data.confirm_install_tools;
+                                this.output_dir = data.output_dir;
 
                             case 4:
                             case "end":
@@ -675,14 +762,14 @@ var App = function () {
                 }, _callee13, this);
             }));
 
-            function getConfirmInstallTools() {
+            function getOutputDir() {
                 return _ref13.apply(this, arguments);
             }
 
-            return getConfirmInstallTools;
+            return getOutputDir;
         }()
     }, {
-        key: "getConfirm",
+        key: "getConfirmInstallTools",
         value: function () {
             var _ref14 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee14() {
                 var data;
@@ -691,12 +778,12 @@ var App = function () {
                         switch (_context14.prev = _context14.next) {
                             case 0:
                                 _context14.next = 2;
-                                return this.prompt(DATA.Q_CONFIRM);
+                                return this.prompt(DATA.Q_CONFIRM_INSTALL_TOOLS);
 
                             case 2:
                                 data = _context14.sent;
 
-                                this.confirm = data.confirm;
+                                this.confirm_install_tools = data.confirm_install_tools;
 
                             case 4:
                             case "end":
@@ -706,14 +793,14 @@ var App = function () {
                 }, _callee14, this);
             }));
 
-            function getConfirm() {
+            function getConfirmInstallTools() {
                 return _ref14.apply(this, arguments);
             }
 
-            return getConfirm;
+            return getConfirmInstallTools;
         }()
     }, {
-        key: "getExample",
+        key: "getConfirm",
         value: function () {
             var _ref15 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee15() {
                 var data;
@@ -722,12 +809,12 @@ var App = function () {
                         switch (_context15.prev = _context15.next) {
                             case 0:
                                 _context15.next = 2;
-                                return this.prompt(DATA.Q_EXAMPLE);
+                                return this.prompt(DATA.Q_CONFIRM);
 
                             case 2:
                                 data = _context15.sent;
 
-                                this.example = data.example;
+                                this.confirm = data.confirm;
 
                             case 4:
                             case "end":
@@ -737,8 +824,39 @@ var App = function () {
                 }, _callee15, this);
             }));
 
-            function getExample() {
+            function getConfirm() {
                 return _ref15.apply(this, arguments);
+            }
+
+            return getConfirm;
+        }()
+    }, {
+        key: "getExample",
+        value: function () {
+            var _ref16 = _asyncToGenerator( /*#__PURE__*/regeneratorRuntime.mark(function _callee16() {
+                var data;
+                return regeneratorRuntime.wrap(function _callee16$(_context16) {
+                    while (1) {
+                        switch (_context16.prev = _context16.next) {
+                            case 0:
+                                _context16.next = 2;
+                                return this.prompt(DATA.Q_EXAMPLE);
+
+                            case 2:
+                                data = _context16.sent;
+
+                                this.example = data.example;
+
+                            case 4:
+                            case "end":
+                                return _context16.stop();
+                        }
+                    }
+                }, _callee16, this);
+            }));
+
+            function getExample() {
+                return _ref16.apply(this, arguments);
             }
 
             return getExample;
@@ -757,10 +875,12 @@ var App = function () {
             console.log(info("github: " + this.packJSON.repository.url));
 
             console.log();
-            console.log(info('使用:'));
-            console.log(info('     方法1: 使用说明'));
+            console.log('使用:');
+            console.log('     方法1: 切换到项目根目录, 然后执行命令 shp2pbf');
+            console.log(info('         cd projectRoot && shp2pbf '));
             console.log();
-            console.log(info('     方法2: 使用说明'));
+            console.log('     方法2: 使用 shp2pbf 路径, 支持相对路径');
+            console.log(info('         shp2pbf /var/www/your_project_root '));
             console.log();
         }
     }]);

@@ -224,6 +224,10 @@ var ProjectExample = function (_Project) {
                 cmd = _path2.default.resolve(this.app.projectRoot, this.app.output_water_dir) + "/*";
                 shell.rm('-rf', cmd);
             }
+
+            shell.mkdir('-p', "" + _path2.default.resolve(this.app.projectRoot, this.app.output_building_dir));
+            shell.mkdir('-p', "" + _path2.default.resolve(this.app.projectRoot, this.app.output_road_dir));
+            shell.mkdir('-p', "" + _path2.default.resolve(this.app.projectRoot, this.app.output_water_dir));
         }
     }]);
 

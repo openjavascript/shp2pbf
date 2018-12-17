@@ -3,6 +3,14 @@ import {
     APPNAME
 } from './constant.js';
 
+export const Q_CONFIG_FILE = [
+    { 
+        "name": "config_file"
+        , "type": "input"
+        , "message": "请输入配置文件路径"
+        , "default": "shp2pbf.json"
+    }
+];
 
 export const Q_OUTPUT_WATER_DIR = [
     { 
@@ -50,7 +58,6 @@ export const Q_ROAD_PARAMS = [
     }
 ];
 
-
 export const Q_ROAD_DIR = [
     { 
         "name": "road_dir"
@@ -59,7 +66,6 @@ export const Q_ROAD_DIR = [
         , "default": "./city/road"
     }
 ];
-
 
 export const Q_OUTPUT_BUILDING_DIR = [
     { 

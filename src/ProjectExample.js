@@ -173,6 +173,9 @@ export default class ProjectExample extends Project {
 			shell.rm( '-rf', cmd );
 		}
 
+        shell.mkdir( '-p', `${path.resolve( this.app.projectRoot, this.app.output_building_dir)}` );
+        shell.mkdir( '-p', `${path.resolve( this.app.projectRoot, this.app.output_road_dir)}` );
+        shell.mkdir( '-p', `${path.resolve( this.app.projectRoot, this.app.output_water_dir)}` );
     }
 
 }
