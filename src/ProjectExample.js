@@ -27,8 +27,8 @@ export default class ProjectExample extends Project {
         this.cleanOutput();
         this.cleanBuildingKml();
         this.initBuilding();
-        this.initRoad();
-        this.initWater();
+		this.initRoad();
+		this.initWater();
     }
 
     initWater(){
@@ -141,7 +141,9 @@ export default class ProjectExample extends Project {
             let match = glob.sync( pattern );
             if( !match.length ){
                 console.log( warning( `building path: ${item.source} do not have any .geojson `) );
-                return;
+				this.shp2geojson( item );
+				match = glob.sync( pattern );
+				if( !match.length ) return;
             }
             fs.ensureDirSync( item.output );
             let cmd = `tippecanoe --output-to-directory=${item.output} ${this.app.building_params} ${match.join(' ')}`;
@@ -149,6 +151,23 @@ export default class ProjectExample extends Project {
             shell.exec( cmd );
         });
     }
+
+	shp2geojson( item ){
+		let pattern = `${item.source}/**/*.shp`;
+		let match = glob.sync( pattern );
+
+		console.log( `auto generator .geojson in ${item.source}` );
+
+		match.map( (file)  => {
+			let dir = path.dirname( file );
+			let filename = path.posix.basename( file, '.shp' );
+			let cmd = `ogr2ogr -f "GeoJSON" -t_srs EPSG:4326 ${dir}/${filename}.geojson ${file}`;
+			shell.exec( cmd );
+		});
+		//console.log( match );
+
+		return match;
+	}
 
     cleanBuildingKml() {
         let cmd = `${path.resolve( this.app.projectRoot, this.app.building_dir)}/*.kml`;

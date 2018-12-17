@@ -191,13 +191,33 @@ var ProjectExample = function (_Project) {
                 var match = glob.sync(pattern);
                 if (!match.length) {
                     console.log(warning("building path: " + item.source + " do not have any .geojson "));
-                    return;
+                    _this4.shp2geojson(item);
+                    match = glob.sync(pattern);
+                    if (!match.length) return;
                 }
                 _fsExtra2.default.ensureDirSync(item.output);
                 var cmd = "tippecanoe --output-to-directory=" + item.output + " " + _this4.app.building_params + " " + match.join(' ');
                 console.log(info(cmd));
                 shell.exec(cmd);
             });
+        }
+    }, {
+        key: "shp2geojson",
+        value: function shp2geojson(item) {
+            var pattern = item.source + "/**/*.shp";
+            var match = glob.sync(pattern);
+
+            console.log("auto generator .geojson in " + item.source);
+
+            match.map(function (file) {
+                var dir = _path2.default.dirname(file);
+                var filename = _path2.default.posix.basename(file, '.shp');
+                var cmd = "ogr2ogr -f \"GeoJSON\" -t_srs EPSG:4326 " + dir + "/" + filename + ".geojson " + file;
+                shell.exec(cmd);
+            });
+            //console.log( match );
+
+            return match;
         }
     }, {
         key: "cleanBuildingKml",
