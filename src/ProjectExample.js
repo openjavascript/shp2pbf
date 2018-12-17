@@ -74,7 +74,6 @@ export default class ProjectExample extends Project {
         });
     }
 
-
     initRoad(){
         if( !( this.app.roadList && this.app.roadList.length) ) return;
 
