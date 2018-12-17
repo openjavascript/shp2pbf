@@ -1,6 +1,6 @@
 {
   "name": "shp2pbf",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": ".shp and .kml to .pbf",
   "main": "src/main.js",
   "bin": {
