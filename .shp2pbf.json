@@ -1,6 +1,5 @@
 {
     "autostart": false
-	, "city_name": ""
 
 	, "building_dir": "./city/building"
 	, "building_params": "-z 15 -Z 10 --no-tile-size-limit --coalesce -n geodata -z 15 -l building"
