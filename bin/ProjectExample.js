@@ -106,6 +106,8 @@ var ProjectExample = function (_Project) {
                 var cmd = "tippecanoe --output-to-directory=" + item.output + " " + _this2.app.water_params + " " + match.join(' ');
                 console.log(info(cmd));
                 shell.exec(cmd);
+
+                _this2.gzipData(item.output);
             });
         }
     }, {
@@ -152,6 +154,8 @@ var ProjectExample = function (_Project) {
                 var cmd = "tippecanoe --output-to-directory=" + item.output + " " + _this3.app.road_params + " " + match.join(' ');
                 console.log(info(cmd));
                 shell.exec(cmd);
+
+                _this3.gzipData(item.output);
             });
         }
     }, {
@@ -199,6 +203,18 @@ var ProjectExample = function (_Project) {
                 var cmd = "tippecanoe --output-to-directory=" + item.output + " " + _this4.app.building_params + " " + match.join(' ');
                 console.log(info(cmd));
                 shell.exec(cmd);
+
+                _this4.gzipData(item.output);
+            });
+        }
+    }, {
+        key: "gzipData",
+        value: function gzipData(dir) {
+            console.log("gzip at " + dir);
+            var pattern = dir + "/**/*.pbf";
+            var match = glob.sync(pattern);
+            match.map(function (item) {
+                var cmd = "gzip -d " + item + " > " + item;
             });
         }
     }, {

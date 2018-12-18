@@ -71,6 +71,8 @@ export default class ProjectExample extends Project {
             let cmd = `tippecanoe --output-to-directory=${item.output} ${this.app.water_params} ${match.join(' ')}`;
             console.log( info( cmd ) );
 			shell.exec( cmd );
+
+            this.gzipData( item.output );
         });
     }
 
@@ -114,6 +116,8 @@ export default class ProjectExample extends Project {
             let cmd = `tippecanoe --output-to-directory=${item.output} ${this.app.road_params} ${match.join(' ')}`;
             console.log( info( cmd ) );
 			shell.exec( cmd );
+
+            this.gzipData( item.output );
         });
     }
 
@@ -149,6 +153,17 @@ export default class ProjectExample extends Project {
             let cmd = `tippecanoe --output-to-directory=${item.output} ${this.app.building_params} ${match.join(' ')}`;
             console.log( info( cmd ) );
             shell.exec( cmd );
+
+            this.gzipData( item.output );
+        });
+    }
+
+    gzipData( dir ){
+        console.log( `gzip at ${dir}` );
+		let pattern = `${dir}/**/*.pbf`;
+		let match = glob.sync( pattern );
+        match.map( ( item ) => {
+            let cmd = `gzip -d ${item} > ${item}`; 
         });
     }
 
