@@ -203,6 +203,17 @@ var ProjectExample = function (_Project) {
                 var cmd = "tippecanoe --output-to-directory=" + item.output + " " + _this4.app.building_params + " " + match.join(' ');
                 console.log(info(cmd));
                 shell.exec(cmd);
+                /*
+                let start = 0, step = 50;
+                while( start < match.length ){
+                    let next = start + step;
+                    let tmp = match.slice( start, next );
+                    start = start + step;
+                    let cmd = `tippecanoe --output-to-directory=${item.output} ${this.app.building_params} ${tmp.join(' ')}`;
+                    console.log( info( cmd ) );
+                    shell.exec( cmd );
+                }
+                */
 
                 _this4.gzipData(item.output);
             });
@@ -228,7 +239,7 @@ var ProjectExample = function (_Project) {
             var pattern = item.source + "/**/*.shp";
             var match = glob.sync(pattern);
 
-            console.log("auto generator .geojson in " + item.source);
+            console.log("auto generate .geojson in " + item.source);
 
             match.map(function (file) {
                 var dir = _path2.default.dirname(file);

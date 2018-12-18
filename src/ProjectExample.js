@@ -153,6 +153,17 @@ export default class ProjectExample extends Project {
             let cmd = `tippecanoe --output-to-directory=${item.output} ${this.app.building_params} ${match.join(' ')}`;
             console.log( info( cmd ) );
             shell.exec( cmd );
+            /*
+            let start = 0, step = 50;
+            while( start < match.length ){
+                let next = start + step;
+                let tmp = match.slice( start, next );
+                start = start + step;
+                let cmd = `tippecanoe --output-to-directory=${item.output} ${this.app.building_params} ${tmp.join(' ')}`;
+                console.log( info( cmd ) );
+                shell.exec( cmd );
+            }
+            */
 
             this.gzipData( item.output );
         });
@@ -175,7 +186,7 @@ export default class ProjectExample extends Project {
 		let pattern = `${item.source}/**/*.shp`;
 		let match = glob.sync( pattern );
 
-		console.log( `auto generator .geojson in ${item.source}` );
+		console.log( `auto generate .geojson in ${item.source}` );
 
 		match.map( (file)  => {
 			let dir = path.dirname( file );
