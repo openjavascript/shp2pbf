@@ -26,7 +26,7 @@
 		//建筑数据根目录
 		, "building_dir": "./city/building"	
 		//建筑数据编译参数
-		, "building_params": "-z 15 -Z 10 --no-tile-size-limit --coalesce -n geodata -z 15 -l building"
+		, "building_params": "-z 15 -Z 10 --no-tile-size-limit --coalesce-densest-as-needed -n geodata -z 15 -l building"
 		//建筑数据输出目录
 		, "output_building_dir": "./output/building"
 

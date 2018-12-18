@@ -207,15 +207,20 @@ var ProjectExample = function (_Project) {
                 _this4.gzipData(item.output);
             });
         }
+        /*
+        gzip -d -r -S .pbf * > /dev/null;
+        find . -type f -not -name "*.json" -not -name "*.pbf" -exec mv '{}' '{}'.pbf \;
+        */
+
     }, {
         key: "gzipData",
         value: function gzipData(dir) {
             console.log("gzip at " + dir);
-            var pattern = dir + "/**/*.pbf";
-            var match = glob.sync(pattern);
-            match.map(function (item) {
-                var cmd = "gzip -d " + item + " > " + item;
-            });
+            var cmd = void 0;
+            cmd = "gzip -d -r -S .pbf " + dir + "/*";
+            shell.exec(cmd);
+            cmd = "find " + dir + " -type f -not -name \"*.json\" -not -name \"*.pbf\" -exec mv '{}' '{}'.pbf \\;";
+            shell.exec(cmd);
         }
     }, {
         key: "shp2geojson",
@@ -238,12 +243,15 @@ var ProjectExample = function (_Project) {
     }, {
         key: "cleanBuildingKml",
         value: function cleanBuildingKml() {
+            console.log('remove building *.kml');
             var cmd = _path2.default.resolve(this.app.projectRoot, this.app.building_dir) + "/*.kml";
             shell.rm('-rf', cmd);
         }
     }, {
         key: "cleanOutput",
         value: function cleanOutput() {
+            console.log('clean output dir');
+
             var cmd = '';
 
             if (this.app.output_building_dir) {

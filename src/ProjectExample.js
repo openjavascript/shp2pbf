@@ -157,14 +157,18 @@ export default class ProjectExample extends Project {
             this.gzipData( item.output );
         });
     }
+    /*
+	gzip -d -r -S .pbf * > /dev/null;
+	find . -type f -not -name "*.json" -not -name "*.pbf" -exec mv '{}' '{}'.pbf \;
+    */
 
     gzipData( dir ){
         console.log( `gzip at ${dir}` );
-		let pattern = `${dir}/**/*.pbf`;
-		let match = glob.sync( pattern );
-        match.map( ( item ) => {
-            let cmd = `gzip -d ${item} > ${item}`; 
-        });
+        let cmd;
+        cmd = `gzip -d -r -S .pbf ${dir}/*`;
+        shell.exec( cmd );
+        cmd = `find ${dir} -type f -not -name "*.json" -not -name "*.pbf" -exec mv '{}' '{}'.pbf \\;`;
+        shell.exec( cmd );
     }
 
 	shp2geojson( item ){
@@ -185,11 +189,14 @@ export default class ProjectExample extends Project {
 	}
 
     cleanBuildingKml() {
+        console.log( 'remove building *.kml' );
         let cmd = `${path.resolve( this.app.projectRoot, this.app.building_dir)}/*.kml`;
         shell.rm( '-rf', cmd );
     }
 
     cleanOutput(){
+        console.log( 'clean output dir' );
+
 		let cmd = '';
 		
 		if( this.app.output_building_dir ){
