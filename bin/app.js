@@ -62,13 +62,15 @@ var success = _chalk2.default.greenBright;
 var info = _chalk2.default.bold.blue;
 
 var App = function () {
-    function App(appRoot, projectRoot, packJSON, osName) {
+    function App(appRoot, projectRoot, packJSON, osName, cityName) {
         _classCallCheck(this, App);
 
         this.appRoot = appRoot;
         this.projectRoot = projectRoot;
         this.packJSON = packJSON;
         this.osName = osName;
+
+        this.cmdCityName = cityName;
 
         console.log(['appRoot: ' + this.appRoot, 'projectRoot: ' + this.projectRoot].join("\n"));
 
@@ -118,6 +120,12 @@ var App = function () {
             }).then(function () {
                 if (_this.config && "city_name" in _this.config) {
                     _this.city_name = _this.config.city_name;
+                    return new Promise(function (resolve) {
+                        setTimeout(resolve, 1);
+                    });
+                }
+                if (_this.cmdCityName) {
+                    _this.city_name = _this.cmdCityName;
                     return new Promise(function (resolve) {
                         setTimeout(resolve, 1);
                     });
@@ -889,6 +897,6 @@ var App = function () {
 }();
 
 exports.default = App;
-function init(APP_ROOT, PROJECT_ROOT, packJSON, osName) {
-    var AppIns = new App(APP_ROOT, PROJECT_ROOT, packJSON, osName);
+function init(APP_ROOT, PROJECT_ROOT, packJSON, osName, cityName) {
+    var AppIns = new App(APP_ROOT, PROJECT_ROOT, packJSON, osName, cityName);
 }

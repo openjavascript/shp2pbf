@@ -23,12 +23,14 @@ import ProjectExample from './ProjectExample.js';
 
 
 export default class App {
-    constructor( appRoot, projectRoot, packJSON, osName ) {
+    constructor( appRoot, projectRoot, packJSON, osName, cityName ) {
 
         this.appRoot = appRoot;
         this.projectRoot = projectRoot;
         this.packJSON = packJSON;   
         this.osName = osName;
+
+        this.cmdCityName = cityName;
 
         console.log( [ 
             'appRoot: ' + this.appRoot
@@ -77,6 +79,10 @@ export default class App {
 				this.city_name = this.config.city_name;
                 return new Promise( function( resolve ){ setTimeout( resolve, 1); });
 			}
+            if( this.cmdCityName ){
+				this.city_name = this.cmdCityName;
+                return new Promise( function( resolve ){ setTimeout( resolve, 1); });
+            }
             return this.getCityName();
         }).then( () => {
 			if( this.config && this.config.building_dir ){
@@ -410,7 +416,7 @@ export default class App {
 
 }
 
-export function init( APP_ROOT, PROJECT_ROOT, packJSON, osName ){
-    let AppIns = new App( APP_ROOT, PROJECT_ROOT, packJSON, osName ); 
+export function init( APP_ROOT, PROJECT_ROOT, packJSON, osName, cityName ){
+    let AppIns = new App( APP_ROOT, PROJECT_ROOT, packJSON, osName, cityName ); 
 }
 

@@ -20,13 +20,21 @@ const APP_ROOT = path.resolve(__dirname, '..');
 let PROJECT_ROOT = process.env.PWD;
 
 let args = get_args(process);
-if( args.length && /\//.test( args[0] ) ){
-    PROJECT_ROOT = path.resolve( args[0] );
+let cityName = '';
+if( args.length ) {
+    if( /\//.test( args[0] ) ){
+        PROJECT_ROOT = path.resolve( args[0] );
+    }else if( cityName = args[0].trim() ){
+        console.log( cityName );
+    }
 }
+
 const pack = fs.readFileSync( `${APP_ROOT}/package.json`, 'utf8' );
 const packJSON = JSON.parse( pack );
+
+//process.exit( 0 );
 
 require('babel-core/register');
 require("babel-polyfill");
 const init = require( './app' ).init;
-init( APP_ROOT, PROJECT_ROOT, packJSON, osName );
+init( APP_ROOT, PROJECT_ROOT, packJSON, osName, cityName );
