@@ -30,4 +30,4 @@ else
 fi
 
 echo  
-echo "tippecanoe enviorment init done"
+echo "tippecanoe enviorment init done" && echo 
