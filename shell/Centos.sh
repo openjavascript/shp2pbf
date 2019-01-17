@@ -21,7 +21,7 @@ else
     yum update -y && echo 
     yum group install -y "Development Tools" && echo 
     yum install -y wget gzip tree && echo 
-    yum install -y gdal-devel && echo 
+    yum install -y gdal gdal-python gdal-devel && echo 
     yum install -y libsqlite3x-devel zlib zlib-devel && echo 
     git clone https://github.com/mapbox/tippecanoe.git ~/tippecanoe && echo 
     make -j -C ~/tippecanoe && echo 
