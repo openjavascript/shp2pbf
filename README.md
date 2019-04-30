@@ -23,6 +23,8 @@
 		"autostart": false 	
 		//城市名，为空表示处理所有数据
 		, "city_name": "" 
+		//清空output目录的文件
+		"cleanoutput": true
 		//建筑数据根目录
 		, "building_dir": "./city/building"	
 		//建筑数据编译参数

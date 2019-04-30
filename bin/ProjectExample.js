@@ -261,6 +261,17 @@ var ProjectExample = function (_Project) {
     }, {
         key: "cleanOutput",
         value: function cleanOutput() {
+
+            var cleanoutput = true;
+
+            if (this.app.config && 'cleanoutput' in this.app.config) {
+                cleanoutput = this.app.config.cleanoutput;
+            }
+
+            if (!cleanoutput) {
+                return;
+            }
+
             console.log('clean output dir');
 
             var cmd = '';

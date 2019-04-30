@@ -206,6 +206,17 @@ export default class ProjectExample extends Project {
     }
 
     cleanOutput(){
+
+        let cleanoutput = true;
+
+        if( this.app.config && 'cleanoutput' in this.app.config ) {
+            cleanoutput = this.app.config.cleanoutput;
+        }
+
+        if( !cleanoutput ){
+            return;
+        }
+
         console.log( 'clean output dir' );
 
 		let cmd = '';
