@@ -11,7 +11,12 @@ let osName = '';
 /ubuntu/i.test( osInfo ) && ( osName = 'Ubuntu' );
 /centos/i.test( osInfo ) && ( osName = 'Centos' );
 
-if( !osName ){	
+if( shell.which( 'sw_vers' ) ){
+    let macosInfo = shell.exec( 'sw_vers', { silent: true } );
+    /Mac OS/i.test( macosInfo ) && ( osName = 'Mac' );
+}
+
+if( !osName ){
 	console.log( '不支持的系统' );
 	process.exit( 0 );
 }

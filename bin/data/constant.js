@@ -12,3 +12,4 @@ var PROJECT_UNRECOGNIZED = exports.PROJECT_UNRECOGNIZED = "无法识别的系统
 
 var UBUNTU = exports.UBUNTU = 'Ubuntu';
 var CENTOS = exports.CENTOS = 'Centos';
+var MAC = exports.MAC = 'Mac';

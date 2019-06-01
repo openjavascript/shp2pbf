@@ -9,3 +9,4 @@ export const PROJECT_UNRECOGNIZED = "无法识别的系统";
 
 export const UBUNTU = 'Ubuntu';
 export const CENTOS = 'Centos';
+export const MAC = 'Mac';
