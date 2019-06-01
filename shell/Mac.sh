@@ -37,15 +37,5 @@ if ! which gdal >/dev/null; then
     brew install gdal
 fi
 
-
-#sudo yum group install -y "Development Tools" && echo
-#sudo yum install -y wget gzip tree && echo
-#sudo yum install -y gdal-devel && echo
-#sudo yum install -y libsqlite3x-devel zlib zlib-devel && echo
-#git clone https://github.com/mapbox/tippecanoe.git ~/tippecanoe && echo
-#sudo make -j -C ~/tippecanoe && echo
-#sudo make -C ~/tippecanoe install && echo
-#sudo rm -rf ~/tippecanoe && echo
-
-#echo
-#echo "tippecanoe enviorment init done" && echo
+echo
+echo "tippecanoe enviorment init done" && echo
