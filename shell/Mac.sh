@@ -1,7 +1,7 @@
 #!/bin/bash
 
 echo
-echo 'initing tippecanoe ( centos )'
+echo 'initing tippecanoe ( mac os x )'
 echo
 echo 'please waiting a moment...'
 echo
